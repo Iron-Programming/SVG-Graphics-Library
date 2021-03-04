@@ -2,32 +2,26 @@ var SVGCANVAS, color, stroke, strokeWeight, path, ellipse, rect, line, cPath, ve
 
 var xlmns = "http://www.w3.org/2000/svg";
 
-/**
- * @class_Canvas
- * Contains the constructor function to create the
- * canvas, and the library functions to draw on it.
-**/
 var Canvas = (function() {
     //// Canvas Constructor ////
     var Canvas = function(id, width, height, parent) {
         ///// Create SVG canvas element /////
         var svg = document.createElementNS(xlmns, "svg");
-        svg.setAttribute("width", width);
         svg.setAttribute("id", id);
-        svg.setAttribute("height", height);
+        svg.setAttribute('viewBox', "0 0 " + width + " " + height);
         document.querySelector(parent).appendChild(svg);
         SVGCANVAS = svg;
-        
+
         //// current color ////
         this.cc = "rgb(255, 255, 255)";
-        
+
         //// current stroke ////
         this.cs = "rgb(255, 255, 255)";
-        
+
         //// current stroke-width ////
         this.csw = 1;
     };
-    
+
     //// Canvas methods: essentially our library ////
     Canvas.prototype = {
         color: function(r, g, b) {
@@ -48,7 +42,7 @@ var Canvas = (function() {
             newRect.setAttribute("fill", this.cc);
             newRect.setAttribute("stroke", this.cs);
             newRect.setAttribute("stroke-width", this.csw);
-            
+
             SVGCANVAS.appendChild(newRect);
         },
         ellipse: function(x, y, width, height) {
@@ -60,7 +54,7 @@ var Canvas = (function() {
             newEllipse.setAttribute("fill", this.cc);
             newEllipse.setAttribute("stroke", this.cs);
             newEllipse.setAttribute("stroke-width", this.csw);
-            
+
             SVGCANVAS.appendChild(newEllipse);
         },
         line: function(x1, y1, x2, y2) {
@@ -80,7 +74,7 @@ var Canvas = (function() {
             newPath.setAttribute('stroke-width', this.csw);
             newPath.setAttribute('fill', this.cc);
             newPath.setAttribute('d', "C" + x1 + " " + y1 + " " + x2 + " " + y2 + " " + x + " " + y);
-            
+
             SVGCANVAS.appendChild(cPath);
         },
         beginPath: function() {
@@ -130,7 +124,7 @@ var Canvas = (function() {
         // animate: takes a single shape (not multi-shapes) and animates it
         animate: function(shape, args, anims) {
             var newShape;
-            
+
             switch (shape) {
                 case 'ellipse':
                     newShape = document.createElementNS(xlmns, "ellipse");
@@ -144,7 +138,7 @@ var Canvas = (function() {
                 break;
                 case 'rect':
                     newShape = document.createElementNS(xlmns, "rect");
-                    
+
                     newShape.setAttribute("x", args[0]);
                     newShape.setAttribute("y", args[1]);
                     newShape.setAttribute("width", args[2]);
@@ -169,21 +163,21 @@ var Canvas = (function() {
                     newShape.setAttribute('fill', this.cc);
                     newShape.setAttribute('d', "C" + args[0] + " " + args[1] + " " + args[2] + " " + args[3] + " " + args[4] + " " + args[5]);
             }
-            
+
             for (var i = 0; i < anims.length; i++) {
                 var newAnimation = document.createElementNS(xlmns, "animate");
                 newAnimation.setAttribute("attributeName", anims[i][0]);
                 newAnimation.setAttribute("dur", anims[i][2]);
                 newAnimation.setAttribute("values", anims[i][1]);
                 newAnimation.setAttribute("repeatCount", anims[i][3]);
-                
+
                 newShape.appendChild(newAnimation);
             }
-            
+
             SVGCANVAS.appendChild(newShape);
         }
     };
-    
+
     //// Holds our operations on the canvas ////
     Canvas.prototype.drawOn = function(func) {
         color = this.color, stroke = this.stroke, strokeWeight = this.strokeWeight, path = this.path, ellipse = this.ellipse, rect = this.rect, line = this.line, vertex = this.vertex, endPath = this.endPath, beginPath = this.beginPath, bezier = this.bezier, cBezierVertex = this.cBezierVertex, qBezierVertex = this.qBezierVertex, scBezierVertex = this.scBezierVertex, sqBezierVertex = this.sqBezierVertex, animate = this.animate;
@@ -192,7 +186,12 @@ var Canvas = (function() {
         strokeWeight(1);
         func();
     };
-    
+
+    //// Controls our viewpoint of the canvas ////
+    Canvas.prototype.view = function(x, y, w, h) {
+        SVGCANVAS.setAttribute("viewBox", x + " " + y + " " + w + " " + h);
+    };
+
     //// Return our canvas class ////
     return Canvas;
 })();
