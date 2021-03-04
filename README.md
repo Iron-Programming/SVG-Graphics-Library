@@ -1,2 +1,2 @@
 # Graphitron.js
-SVG Graphics Library is a great engine which lets you easily make graphics in HTML in Java Script. Any good name recommendations?
+Graphitron.js is a SVG graphics library making the usage of SVG very easy in Java Script!
