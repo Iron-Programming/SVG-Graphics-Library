@@ -24,11 +24,13 @@ var Canvas = (function() {
 
     //// Canvas methods: essentially our library ////
     Canvas.prototype = {
-        color: function(r, g, b) {
-            this.cc = "rgb(" + r + "," + g + "," + b + ")";
+        color: function(r, g, b, a) {
+            a = a || 255;
+            this.cc = "rgb(" + r + "," + g + "," + b + "," + a + ")";
         },
-        stroke: function(r, g, b) {
-            this.cs = "rgb(" + r + "," + g + "," + b + ")";
+        stroke: function(r, g, b, a) {
+            a = a || 255;
+            this.cs = "rgb(" + r + "," + g + "," + b + "," + a + ")";
         },
         strokeWeight: function(w) {
             this.csw = w;
