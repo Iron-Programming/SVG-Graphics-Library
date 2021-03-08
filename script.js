@@ -1,4 +1,4 @@
-var SVGCANVAS, color, stroke, strokeWeight, path, ellipse, rect, line, cPath, vertex, beginPath, endPath, cBezierVertex, qBezierVertex, bezier, scBezierVertex, sqBezierVertex, animate;
+var SVGCANVAS, color, stroke, strokeWeight, path, ellipse, rect, line, triangle, cPath, vertex, beginPath, endPath, cBezierVertex, qBezierVertex, bezier, scBezierVertex, sqBezierVertex, animate;
 
 var xlmns = "http://www.w3.org/2000/svg";
 
@@ -74,6 +74,15 @@ var Canvas = (function() {
             newPath.setAttribute('stroke-width', this.csw);
             newPath.setAttribute('fill', this.cc);
             newPath.setAttribute('d', "C" + x1 + " " + y1 + " " + x2 + " " + y2 + " " + x + " " + y);
+
+            SVGCANVAS.appendChild(cPath);
+        },
+        triangle: function(x1, y1, x2, y2, x3, y3) {
+            var newPath = document.createElementNS(xlmns, "path");
+            newPath.setAttribute('stroke', this.cs);
+            newPath.setAttribute('stroke-width', this.csw);
+            newPath.setAttribute('fill', this.cc);
+            newPath.setAttribute('d', "M" + x1 + " " + y1 + "L" + x2 + " " + y2 + "L" + x3 + " " + y3);
 
             SVGCANVAS.appendChild(cPath);
         },
@@ -180,7 +189,7 @@ var Canvas = (function() {
 
     //// Holds our operations on the canvas ////
     Canvas.prototype.drawOn = function(func) {
-        color = this.color, stroke = this.stroke, strokeWeight = this.strokeWeight, path = this.path, ellipse = this.ellipse, rect = this.rect, line = this.line, vertex = this.vertex, endPath = this.endPath, beginPath = this.beginPath, bezier = this.bezier, cBezierVertex = this.cBezierVertex, qBezierVertex = this.qBezierVertex, scBezierVertex = this.scBezierVertex, sqBezierVertex = this.sqBezierVertex, animate = this.animate;
+        color = this.color, stroke = this.stroke, strokeWeight = this.strokeWeight, path = this.path, ellipse = this.ellipse, rect = this.rect, triangle = this.triangle, line = this.line, vertex = this.vertex, endPath = this.endPath, beginPath = this.beginPath, bezier = this.bezier, cBezierVertex = this.cBezierVertex, qBezierVertex = this.qBezierVertex, scBezierVertex = this.scBezierVertex, sqBezierVertex = this.sqBezierVertex, animate = this.animate;
         color(255, 255, 255);
         stroke(255, 255, 255);
         strokeWeight(1);
