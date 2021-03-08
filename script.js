@@ -1,4 +1,4 @@
-var SVGCANVAS, color, stroke, strokeWeight, path, ellipse, rect, line, triangle, cPath, vertex, beginPath, endPath, cBezierVertex, qBezierVertex, bezier, scBezierVertex, sqBezierVertex, animate;
+var SVGCANVAS, color, stroke, strokeWeight, path, ellipse, rect, line, triangle, cPath, vertex, beginPath, endPath, cBezierVertex, qBezierVertex, bezier, scBezierVertex, sqBezierVertex, animate, text;
 
 var xlmns = "http://www.w3.org/2000/svg";
 
@@ -34,6 +34,16 @@ var Canvas = (function() {
         },
         strokeWeight: function(w) {
             this.csw = w;
+        },
+        text: function(message, x, y, size) {
+            var newText = document.createElementNS(xlmns, "text");
+            newText.setAttribute("x", x);
+            newText.setAttribute("y", y);
+            newText.textContent = message;
+            newText.setAttribute("font-size", size);
+            newText.setAttribute("fill", this.cc);
+
+            SVGCANVAS.appendChild(newText);
         },
         rect: function(x, y, width, height) {
             var newRect = document.createElementNS(xlmns, "rect");
@@ -191,7 +201,7 @@ var Canvas = (function() {
 
     //// Holds our operations on the canvas ////
     Canvas.prototype.drawOn = function(func) {
-        color = this.color, stroke = this.stroke, strokeWeight = this.strokeWeight, path = this.path, ellipse = this.ellipse, rect = this.rect, triangle = this.triangle, line = this.line, vertex = this.vertex, endPath = this.endPath, beginPath = this.beginPath, bezier = this.bezier, cBezierVertex = this.cBezierVertex, qBezierVertex = this.qBezierVertex, scBezierVertex = this.scBezierVertex, sqBezierVertex = this.sqBezierVertex, animate = this.animate;
+        color = this.color, stroke = this.stroke, strokeWeight = this.strokeWeight, path = this.path, ellipse = this.ellipse, rect = this.rect, triangle = this.triangle, line = this.line, vertex = this.vertex, endPath = this.endPath, beginPath = this.beginPath, bezier = this.bezier, cBezierVertex = this.cBezierVertex, qBezierVertex = this.qBezierVertex, scBezierVertex = this.scBezierVertex, sqBezierVertex = this.sqBezierVertex, animate = this.animate, text = this.text;
         color(255, 255, 255);
         stroke(255, 255, 255);
         strokeWeight(1);
