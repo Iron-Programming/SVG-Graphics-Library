@@ -25,10 +25,10 @@ var Canvas = (function() {
     //// Canvas methods: essentially our library ////
     Canvas.prototype = {
         color: function(r, g, b) {
-            this.cc = "rgb(" + r + "," + b + "," + b + ")";
+            this.cc = "rgb(" + r + "," + g + "," + b + ")";
         },
         stroke: function(r, g, b) {
-            this.cs = "rgb(" + r + "," + b + "," + b + ")";
+            this.cs = "rgb(" + r + "," + g + "," + b + ")";
         },
         strokeWeight: function(w) {
             this.csw = w;
