@@ -96,7 +96,7 @@ var Canvas = (function() {
             newPath.setAttribute('fill', this.cc);
             newPath.setAttribute('d', "M" + x1 + " " + y1 + "L" + x2 + " " + y2 + "L" + x3 + " " + y3);
 
-            SVGCANVAS.appendChild(cPath);
+            SVGCANVAS.appendChild(newPath);
         },
         beginPath: function() {
             var newPath = document.createElementNS(xlmns, "path");
@@ -216,3 +216,4 @@ var Canvas = (function() {
     //// Return our canvas class ////
     return Canvas;
 })();
+
