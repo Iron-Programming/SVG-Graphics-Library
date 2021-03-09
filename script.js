@@ -1,4 +1,4 @@
-var SVGCANVAS, color, stroke, strokeWeight, path, ellipse, rect, line, triangle, cPath, vertex, beginPath, endPath, cBezierVertex, qBezierVertex, bezier, scBezierVertex, sqBezierVertex, animate, text;
+var SVGCANVAS, color, stroke, strokeWeight, path, ellipse, rect, line, triangle, cPath, vertex, beginPath, endPath, cBezierVertex, qBezierVertex, bezier, scBezierVertex, sqBezierVertex, animate, text, ROTATE = 0, TRANSLATEX = 0, TRANSLATEY = 0, SCALEX = 1, SCALEY = 1, rotate, scale, translate, resetMatrix;
 
 var xlmns = "http://www.w3.org/2000/svg";
 
@@ -42,6 +42,7 @@ var Canvas = (function() {
             newText.textContent = message;
             newText.setAttribute("font-size", size);
             newText.setAttribute("fill", this.cc);
+            newText.setAttribute("transform", "rotate(" + ROTATE + ") translate(" + TRANSLATEX + " " + TRANSLATEY + ") scale(" + SCALEX + " " + SCALEY + ")");
 
             SVGCANVAS.appendChild(newText);
         },
@@ -54,6 +55,7 @@ var Canvas = (function() {
             newRect.setAttribute("fill", this.cc);
             newRect.setAttribute("stroke", this.cs);
             newRect.setAttribute("stroke-width", this.csw);
+            newRect.setAttribute("transform", "rotate(" + ROTATE + ") translate(" + TRANSLATEX + " " + TRANSLATEY + ") scale(" + SCALEX + " " + SCALEY + ")");
 
             SVGCANVAS.appendChild(newRect);
         },
@@ -66,6 +68,7 @@ var Canvas = (function() {
             newEllipse.setAttribute("fill", this.cc);
             newEllipse.setAttribute("stroke", this.cs);
             newEllipse.setAttribute("stroke-width", this.csw);
+            newEllipse.setAttribute("transform", "rotate(" + ROTATE + ") translate(" + TRANSLATEX + " " + TRANSLATEY + ") scale(" + SCALEX + " " + SCALEY + ")");
 
             SVGCANVAS.appendChild(newEllipse);
         },
@@ -77,6 +80,7 @@ var Canvas = (function() {
             newLine.setAttribute("y2", y2);
             newLine.setAttribute("stroke", this.cs);
             newLine.setAttribute("stroke-width", this.csw);
+            newLine.setAttribute("transform", "rotate(" + ROTATE + ") translate(" + TRANSLATEX + " " + TRANSLATEY + ") scale(" + SCALEX + " " + SCALEY + ")");
             SVGCANVAS.appendChild(newLine);
         },
         // Cubic Bézier (single shape)
@@ -86,6 +90,7 @@ var Canvas = (function() {
             newPath.setAttribute('stroke-width', this.csw);
             newPath.setAttribute('fill', this.cc);
             newPath.setAttribute('d', "C" + x1 + " " + y1 + " " + x2 + " " + y2 + " " + x + " " + y);
+            newPath.setAttribute("transform", "rotate(" + ROTATE + ") translate(" + TRANSLATEX + " " + TRANSLATEY + ") scale(" + SCALEX + " " + SCALEY + ")");
 
             SVGCANVAS.appendChild(cPath);
         },
@@ -95,6 +100,7 @@ var Canvas = (function() {
             newPath.setAttribute('stroke-width', this.csw);
             newPath.setAttribute('fill', this.cc);
             newPath.setAttribute('d', "M" + x1 + " " + y1 + "L" + x2 + " " + y2 + "L" + x3 + " " + y3);
+            newPath.setAttribute("transform", "rotate(" + ROTATE + ") translate(" + TRANSLATEX + " " + TRANSLATEY + ") scale(" + SCALEX + " " + SCALEY + ")");
 
             SVGCANVAS.appendChild(newPath);
         },
@@ -104,6 +110,7 @@ var Canvas = (function() {
             newPath.setAttribute('stroke-width', this.csw);
             newPath.setAttribute('fill', this.cc);
             newPath.setAttribute('d', "");
+            newPath.setAttribute("transform", "rotate(" + ROTATE + ") translate(" + TRANSLATEX + " " + TRANSLATEY + ") scale(" + SCALEX + " " + SCALEY + ")");
             cPath = newPath;
         },
         // Move / Line to
@@ -142,6 +149,25 @@ var Canvas = (function() {
             SVGCANVAS.appendChild(cPath);
             cPath = "";
         },
+        resetMatrix: function() {
+            ROTATE = 0;
+            SCALEX = 1;
+            SCALEY = 1;
+            TRANSLATEX = 0;
+            TRANSLATEY = 0;
+        },
+        translate: function(x, y) {
+            TRANSLATEX = x;
+            TRANSLATEY = y;
+        },
+        scale: function(x, y) {
+            y = y || x;
+            SCALEX = x;
+            SCALEY = y;
+        },
+        rotate: function(theta) {
+            ROTATE = theta;
+        },
         // animate: takes a single shape (not multi-shapes) and animates it
         animate: function(shape, args, anims) {
             var newShape;
@@ -156,6 +182,7 @@ var Canvas = (function() {
                     newShape.setAttribute("fill", this.cc);
                     newShape.setAttribute("stroke", this.cs);
                     newShape.setAttribute("stroke-width", this.csw);
+                    newShape.setAttribute("transform", "rotate(" + ROTATE + ") translate(" + TRANSLATEX + " " + TRANSLATEY + ") scale(" + SCALEX + " " + SCALEY + ")");
                 break;
                 case 'rect':
                     newShape = document.createElementNS(xlmns, "rect");
@@ -167,6 +194,7 @@ var Canvas = (function() {
                     newShape.setAttribute("fill", this.cc);
                     newShape.setAttribute("stroke", this.cs);
                     newShape.setAttribute("stroke-width", this.csw);
+                    newShape.setAttribute("transform", "rotate(" + ROTATE + ") translate(" + TRANSLATEX + " " + TRANSLATEY + ") scale(" + SCALEX + " " + SCALEY + ")");
                 break;
                 case 'line':
                     newShape = document.createElementNS(xlmns, "line");
@@ -176,6 +204,7 @@ var Canvas = (function() {
                     newShape.setAttribute("y2", args[3]);
                     newShape.setAttribute("stroke", this.cs);
                     newShape.setAttribute("stroke-width", this.csw);
+                    newShape.setAttribute("transform", "rotate(" + ROTATE + ") translate(" + TRANSLATEX + " " + TRANSLATEY + ") scale(" + SCALEX + " " + SCALEY + ")");
                 break;
                 case 'bezier':
                     newShape = document.createElementNS(xlmns, "path");
@@ -183,6 +212,7 @@ var Canvas = (function() {
                     newShape.setAttribute('stroke-width', this.csw);
                     newShape.setAttribute('fill', this.cc);
                     newShape.setAttribute('d', "C" + args[0] + " " + args[1] + " " + args[2] + " " + args[3] + " " + args[4] + " " + args[5]);
+                    newShape.setAttribute("transform", "rotate(" + ROTATE + ") translate(" + TRANSLATEX + " " + TRANSLATEY + ") scale(" + SCALEX + " " + SCALEY + ")");
             }
 
             for (var i = 0; i < anims.length; i++) {
@@ -201,7 +231,7 @@ var Canvas = (function() {
 
     //// Holds our operations on the canvas ////
     Canvas.prototype.drawOn = function(func) {
-        color = this.color, stroke = this.stroke, strokeWeight = this.strokeWeight, path = this.path, ellipse = this.ellipse, rect = this.rect, triangle = this.triangle, line = this.line, vertex = this.vertex, endPath = this.endPath, beginPath = this.beginPath, bezier = this.bezier, cBezierVertex = this.cBezierVertex, qBezierVertex = this.qBezierVertex, scBezierVertex = this.scBezierVertex, sqBezierVertex = this.sqBezierVertex, animate = this.animate, text = this.text;
+        color = this.color, stroke = this.stroke, strokeWeight = this.strokeWeight, path = this.path, ellipse = this.ellipse, rect = this.rect, triangle = this.triangle, line = this.line, vertex = this.vertex, endPath = this.endPath, beginPath = this.beginPath, bezier = this.bezier, cBezierVertex = this.cBezierVertex, qBezierVertex = this.qBezierVertex, scBezierVertex = this.scBezierVertex, sqBezierVertex = this.sqBezierVertex, animate = this.animate, text = this.text, rotate = this.rotate, translate = this.translate, scale = this.scale, resetMatrix = this.resetMatrix;
         color(255, 255, 255);
         stroke(255, 255, 255);
         strokeWeight(1);
