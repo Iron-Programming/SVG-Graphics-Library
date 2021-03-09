@@ -1,7 +1,6 @@
+var SVGCANVAS, color, stroke, strokeWeight, path, ellipse, rect, line, triangle, cPath, vertex, beginPath, endPath, cBezierVertex, qBezierVertex, bezier, scBezierVertex, sqBezierVertex, animate, text, ROTATE = 0, TRANSLATEX = 0, TRANSLATEY = 0, SCALEX = 1, SCALEY = 1, rotate, scale, translate, resetMatrix, rotPosX = 0, rotPosY = 0, draw, drawSpeed = 50, frameRate;
 
-    var SVGCANVAS, color, stroke, strokeWeight, path, ellipse, rect, line, triangle, cPath, vertex, beginPath, endPath, cBezierVertex, qBezierVertex, bezier, scBezierVertex, sqBezierVertex, animate, text, ROTATE = 0, TRANSLATEX = 0, TRANSLATEY = 0, SCALEX = 1, SCALEY = 1, rotate, scale, translate, resetMatrix, rotPosX = 0, rotPosY = 0, draw;
-    
-    var COUNTER = 0;
+var COUNTER = 0;
 
 var xlmns = "http://www.w3.org/2000/svg";
 
@@ -252,6 +251,9 @@ var Canvas = (function() {
             }
 
             SVGCANVAS.appendChild(newShape);
+        },
+        frameRate: function(spd) {
+            drawSpeed = spd;
         }
     };
     
@@ -260,16 +262,15 @@ var Canvas = (function() {
         window.setInterval(function() {
             elements = document.getElementsByClassName(COUNTER);
             for (var i = elements.length - 1; i >= 0; i--) {
-                elements[i].style.display = "none";
+                elements[i].remove();
             }
-            COUNTER++;
             func();
-        }, 100);
+        }, drawSpeed);
     };
 
     //// Holds our operations on the canvas ////
     Canvas.prototype.drawOn = function(func) {
-        color = this.color, stroke = this.stroke, strokeWeight = this.strokeWeight, path = this.path, ellipse = this.ellipse, rect = this.rect, triangle = this.triangle, line = this.line, vertex = this.vertex, endPath = this.endPath, beginPath = this.beginPath, bezier = this.bezier, cBezierVertex = this.cBezierVertex, qBezierVertex = this.qBezierVertex, scBezierVertex = this.scBezierVertex, sqBezierVertex = this.sqBezierVertex, animate = this.animate, text = this.text, rotate = this.rotate, translate = this.translate, scale = this.scale, resetMatrix = this.resetMatrix, draw = this.draw;
+        color = this.color, stroke = this.stroke, strokeWeight = this.strokeWeight, path = this.path, ellipse = this.ellipse, rect = this.rect, triangle = this.triangle, line = this.line, vertex = this.vertex, endPath = this.endPath, beginPath = this.beginPath, bezier = this.bezier, cBezierVertex = this.cBezierVertex, qBezierVertex = this.qBezierVertex, scBezierVertex = this.scBezierVertex, sqBezierVertex = this.sqBezierVertex, animate = this.animate, text = this.text, rotate = this.rotate, translate = this.translate, scale = this.scale, resetMatrix = this.resetMatrix, draw = this.draw, frameRate = this.frameRate;
         color(255, 255, 255);
         stroke(255, 255, 255);
         strokeWeight(1);
