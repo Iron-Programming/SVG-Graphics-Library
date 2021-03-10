@@ -1,5 +1,5 @@
 var SVGCANVAS, color, stroke, strokeWeight, path, ellipse, rect, line, triangle, cPath, vertex, beginPath, endPath, cBezierVertex, qBezierVertex, bezier, scBezierVertex, sqBezierVertex, animate, text, ROTATE = 0, TRANSLATEX = 0, TRANSLATEY = 0, SCALEX = 1, SCALEY = 1, rotate, scale, translate, resetMatrix, rotPosX = 0, rotPosY = 0, draw, drawSpeed = 50, frameRate;
-
+    
 var COUNTER = 0;
 
 var xlmns = "http://www.w3.org/2000/svg";
