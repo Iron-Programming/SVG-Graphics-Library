@@ -1,0 +1,6 @@
+/** Graphitron.js Documentation
+* (1.) "Link" the library in.
+<script src="https://cdn.jsdelivr.net/gh/Iron-Programming/SVG-Graphics-Library@latest/script.js"></script>
+* (2.) Read the docs below to use the library.
+**/
+
