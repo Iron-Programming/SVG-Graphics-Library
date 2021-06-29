@@ -65,6 +65,19 @@ var Canvas = (function() {
 
             SVGCANVAS.appendChild(newRect);
         },
+        img: function(src, x, y, width, height) {
+            var newImg = document.createElement("img");
+            newImg.setAttribute("src", src);
+            newImg.setAttribute("x", x);
+            newImg.setAttribute("y", y);
+            newImg.setAttribute("width", width);
+            newImg.setAttribute("height", height);
+            newImg.setAttribute("transform", "rotate(" + ROTATE + ") translate(" + TRANSLATEX + " " + TRANSLATEY + ") scale(" + SCALEX + " " + SCALEY + ")");
+            newImg.setAttribute("transform-origin", rotPosX + " " + rotPosY);
+            newImg.classList.add(String(COUNTER));
+
+            SVGCANVAS.appendChild(newImg);
+        },
         ellipse: function(x, y, width, height) {
             var newEllipse = document.createElementNS(xlmns, "ellipse");
             newEllipse.setAttribute("cx", x);
@@ -270,7 +283,7 @@ var Canvas = (function() {
 
     //// Holds our operations on the canvas ////
     Canvas.prototype.drawOn = function(func) {
-        color = this.color, stroke = this.stroke, strokeWeight = this.strokeWeight, path = this.path, ellipse = this.ellipse, rect = this.rect, triangle = this.triangle, line = this.line, vertex = this.vertex, endPath = this.endPath, beginPath = this.beginPath, bezier = this.bezier, cBezierVertex = this.cBezierVertex, qBezierVertex = this.qBezierVertex, scBezierVertex = this.scBezierVertex, sqBezierVertex = this.sqBezierVertex, animate = this.animate, text = this.text, rotate = this.rotate, translate = this.translate, scale = this.scale, resetMatrix = this.resetMatrix, draw = this.draw, frameRate = this.frameRate;
+        color = this.color, stroke = this.stroke, strokeWeight = this.strokeWeight, path = this.path, ellipse = this.ellipse, img = this.img, rect = this.rect, triangle = this.triangle, line = this.line, vertex = this.vertex, endPath = this.endPath, beginPath = this.beginPath, bezier = this.bezier, cBezierVertex = this.cBezierVertex, qBezierVertex = this.qBezierVertex, scBezierVertex = this.scBezierVertex, sqBezierVertex = this.sqBezierVertex, animate = this.animate, text = this.text, rotate = this.rotate, translate = this.translate, scale = this.scale, resetMatrix = this.resetMatrix, draw = this.draw, frameRate = this.frameRate;
         color(255, 255, 255);
         stroke(255, 255, 255);
         strokeWeight(1);
