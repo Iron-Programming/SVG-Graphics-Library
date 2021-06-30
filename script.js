@@ -14,7 +14,7 @@ var Canvas = (function() {
         svg.setAttribute("id", id);
         svg.setAttribute('viewBox', "0 0 " + width + " " + height);
         document.querySelector(parent).appendChild(svg);
-
+        
         //// current color ////
         this.cc = "rgb(255, 255, 255)";
 
@@ -23,7 +23,7 @@ var Canvas = (function() {
 
         //// current stroke-width ////
         this.csw = 1;
-
+        
         this.id = id;
     };
 
@@ -78,7 +78,7 @@ var Canvas = (function() {
             newImg.setAttribute("transform", "rotate(" + ROTATE + ") translate(" + TRANSLATEX + " " + TRANSLATEY + ") scale(" + SCALEX + " " + SCALEY + ")");
             newImg.setAttribute("transform-origin", rotPosX + " " + rotPosY);
             newImg.classList.add(String(COUNTER));
-
+            
             document.getElementById(ID).appendChild(newImg);
         },
         ellipse: function(x, y, width, height) {
@@ -272,13 +272,14 @@ var Canvas = (function() {
             drawSpeed = spd;
         }
     };
-
+    
     Canvas.prototype.draw = function(func) {
-        intervals.push({run: func, time: frameRate});
+        intervals.push({run: func, time: frameRate, id: ID});
     };
-
+    
     Canvas.prototype.updateVariables = function() {
         color = this.color, stroke = this.stroke, strokeWeight = this.strokeWeight, path = this.path, ellipse = this.ellipse, img = this.img, rect = this.rect, triangle = this.triangle, line = this.line, vertex = this.vertex, endPath = this.endPath, beginPath = this.beginPath, bezier = this.bezier, cBezierVertex = this.cBezierVertex, qBezierVertex = this.qBezierVertex, scBezierVertex = this.scBezierVertex, sqBezierVertex = this.sqBezierVertex, animate = this.animate, text = this.text, rotate = this.rotate, translate = this.translate, scale = this.scale, resetMatrix = this.resetMatrix, draw = this.draw, frameRate = this.frameRate, ID = this.id;
+        resetMatrix();
     };
 
     //// Holds our operations on the canvas ////
@@ -299,18 +300,25 @@ var Canvas = (function() {
     return Canvas;
 })();
 
+// EXPORTED FROM JQUERY LIBRARY
+function isVisible(elem) {
+    return !!( elem.offsetWidth || elem.offsetHeight || elem.getClientRects().length );
+}
+
 var INTERVALTIME = 0;
 window.setInterval(function() {
     INTERVALTIME++;
-
+    
     var elements = document.getElementsByClassName(COUNTER);
     for (var i = elements.length - 1; i >= 0; i--) {
         elements[i].remove();
     }
-
+    
     for (var i = 0; i < intervals.length; i++) {
-        if (intervals[i].time) {
+        if (isVisible(document.getElementById(intervals[i].id))) {
             intervals[i].run();
         }
     }
+    
+    resetMatrix();
 }, 1);
