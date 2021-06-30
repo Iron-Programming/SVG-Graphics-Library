@@ -1,6 +1,101 @@
 /** Graphitron.js Documentation
 * (1.) "Link" the library in.
 <script src="https://cdn.jsdelivr.net/gh/Iron-Programming/SVG-Graphics-Library@latest/script.js"></script>
-* (2.) Read the docs below to use the library.
+* (2.) Add canvas container(s) in your HTML.
+<div id="canvasContainerID"></div>
+* (3.) Add a <script> tag and create a new Canvas in that <div> container.
+// var canvasName = new Canvas("canvasID", canvasWidth, canvasHeight, "#IDofCanvasContainer");
+var canvas = new Canvas("canvas", window.innerWidth, 150, "#canvasContainerID");
+* (4.) Draw on the canvas.
+canvas.drawOn(function() {
+    // create global variables that you want to use later.
+    var width = window.innerWidth,
+        height = window.innerHeight;
+        
+    // You can now begin to draw on the canvas using the library functions!
+});
+* (5.) Functions are described below.
 **/
+
+
+/** 
+* color(r, g, b, a*); --> colors/fills a figure 
+* r = red
+* g = green
+* b = blue
+* a = alpha (transparency)
+**/
+color(255, 0, 0);
+
+/** 
+* stroke(r, g, b, a*); --> colors the figure's outline 
+* r = red
+* g = green
+* b = blue
+* a = alpha (transparency)
+**/
+stroke(0, 0, 0);
+
+/** 
+* strokeWeight(w); --> controls the weight/thickness of a figure's outline
+* w = the thickness of the figure's outline
+**/
+strokeWeight(1);
+
+/**
+* text(message, x, y, size); --> draws text
+* message = text content
+* x = horizontal position
+* y = vertical position
+* size = font size
+**/
+text("Hello World!!!", 100, 100, 25);
+
+/**
+* rect(x, y, width, height); --> draws a rectangle
+* x = horizontal position
+* y = vertical position
+* width = horizontal length
+* height = vertical length
+**/
+rect(50, 50, 100, 100);
+
+/**
+* ellipse(x, y, width, height); --> draws an ellipse
+* x = horizontal position
+* y = vertical position
+* width = horizontal length
+* height = vertical length
+**/
+ellipse(50, 50, 100, 100);
+
+/**
+* img(src, x, y, *width, *height); --> draws an image from the internet
+* src = image source/url
+* x = horizontal position
+* y = vertical position
+* width = horizontal length
+* height = vertical length
+* *width/height. If width or height are left blank then the image will resort to its original size.
+**/
+img("https://commons.wikimedia.org/wiki/File:Hemerocallis_fulva_2018_G1.jpg#/media/File:Hemerocallis_fulva_2018_G1.jpg", 50, 50, 400, 400);
+
+/**
+* line(x1, y1, x2, y2); --> draws a line
+* x1/y1 --> first coordinate
+* x2/y2 --> second coordinate
+**/
+line(50, 50, 50, 100);
+
+/**
+* bezier(x1, y1, x2, y2, x, y); --> draws a single Cubic Bézier curve (single shape)
+* x1/y1 --> first curve control point 
+* x2/y2 --> second curve control point
+* x/y --> stable coordinate
+**/
+bezier(/** ERROR **/);
+
+// TODO: Cubic Bézier (single shape), triangle, beginPath/endPath, Cubic Bézier (multi-shape), Several Béziers (cubic), Quadratic Bézier, Several Béziers (quadratic), transformations (resetMatrix, scale, rotate, etc)
+
+
 
